@@ -1,26 +1,39 @@
 version: '3'
 
 services:
+
   mongodb:
     image: mongo:latest
-    container_name: "mongodb"
+    restart: always
+    container_name: mongodb
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
-    command: mongod --smallfiles --logpath=/dev/null
+    command: mongod --bind_ip_all --smallfiles --logpath=/dev/null
     ports:
-        - 27017:27017
+#        - "127.0.0.1:27017:27017"
+      - 27017:27017
     volumes:
       - ./data/db:/data/db
+#    net:
+#       bindIp: 127.0.0.1
+#       port: 27017
 
-  web:
+  flask:
     build:
       context: .
       dockerfile: Dockerfile
     command: uwsgi --socket 0.0.0.0:5000 --processes 1 --threads 8 --protocol http -w wsgi
     ports:
-      - "5000:5000"
+      - 5000:5000
     volumes:
       - .:/app
     depends_on:
       - mongodb
+    environment:
+      - DOCKER_MONGO_HOSTNAME=mongodb
+    tty: true
+    links:
+      - mongodb
+#    network_mode: bridge
+#    netw ork_mode: host

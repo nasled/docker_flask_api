@@ -8,7 +8,7 @@ MAINTAINER Art Naslednikau
 
 # update and install distribution software
 RUN apt-get update -y
-RUN apt-get install -y curl
+RUN apt-get install -y curl nano
 
 # add sources to and set the working directory
 ADD . /app

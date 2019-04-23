@@ -12,6 +12,7 @@ sudo docker-compose build
 sudo docker-compose run -d
 
 
+
 # build image
 sudo docker build -t art/flask .
 
@@ -36,6 +37,11 @@ sudo docker logs flaskc
 # shell into the container
 sudo docker exec -ti flaskc /bin/bash
 
+    
 
 # test from host or docker container
 curl -XGET localhost:5000
+curl -XPOST http://localhost:5000/save -d '{"hello": "world"}'
+curl -XGET http://localhost:5000/list
+
+
