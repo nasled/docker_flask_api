@@ -4,14 +4,21 @@ from flask_mongoalchemy import MongoAlchemy
 import os
 
 
+print('----------------------------------------------')
+print('API Service Hostname:',os.environ.get('DOCKER_MONGO_HOSTNAME'))
+print('----------------------------------------------')
+
+
 app = Flask(__name__)
 app.config['MONGOALCHEMY_SERVER'] = os.environ.get('DOCKER_MONGO_HOSTNAME')
 # app.config['MONGOALCHEMY_SERVER'] = "localhost"
 app.config['MONGOALCHEMY_DATABASE'] = "mongodb"
 
+
 api = Api(app)
 db = MongoAlchemy(app)
 
+# exit(111)
 
 '''
 Document Structure

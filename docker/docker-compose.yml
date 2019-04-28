@@ -1,0 +1,39 @@
+version: '3'
+
+networks:
+  backend:
+
+volumes:
+  mongo:
+    driver: local
+
+services:
+  mongo:
+    build: mongo
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    volumes:
+      - ../data/db:/data/db
+    networks:
+      - backend
+    container_name: mongo
+
+  flask:
+    build:
+      context: ./flask
+    ports:
+      - 5000:5000
+    volumes:
+      - ../src/:/app
+    command: sh -c "/wait && uwsgi --socket 0.0.0.0:5000 --processes 1 --threads 1 --protocol http -w wsgi"
+    environment:
+      DOCKER_MONGO_HOSTNAME: mongo
+      WAIT_HOSTS: mongo:27017
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    networks:
+      - backend

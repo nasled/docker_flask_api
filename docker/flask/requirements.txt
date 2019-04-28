@@ -1,0 +1,15 @@
+-i https://pypi.org/simple
+aniso8601==6.0.0
+click==7.0
+flask-mongoalchemy==0.7.2
+flask-restful==0.3.7
+flask==1.0.2
+itsdangerous==1.1.0
+jinja2==2.10.1
+markupsafe==1.1.1
+mongoalchemy==0.19
+pymongo==2.8.1
+pytz==2019.1
+six==1.12.0
+uwsgi==2.0.18
+werkzeug==0.15.2

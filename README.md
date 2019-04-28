@@ -88,6 +88,5 @@ sudo docker logs flaskc
 ```
 sudo docker exec -ti flaskc /bin/bash
 ```
-    
-
+   
 

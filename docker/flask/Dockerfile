@@ -10,13 +10,16 @@ MAINTAINER Art Naslednikau
 RUN apt-get update -y
 RUN apt-get install -y curl nano
 
-# add sources to and set the working directory
-ADD . /app
-WORKDIR /app
-
 # install dependencies
-RUN pip install pipenv
-RUN pipenv install --system --deploy
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
 # make port available from host
 EXPOSE 5000
+
+# set working dir
+WORKDIR /app
+
+# https://github.com/ufoscout/docker-compose-wait/
+ADD wait /wait
+RUN chmod +x /wait
